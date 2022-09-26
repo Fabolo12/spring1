@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -30,8 +31,13 @@ public class Product {
 
     private String description;
 
+    private LocalDate created;
+
     @PrePersist
     public void prePersist() {
+        if (created == null) {
+            created = LocalDate.now();
+        }
         ProductValidator.checkProduct(this);
     }
 

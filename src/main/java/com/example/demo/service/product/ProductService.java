@@ -1,11 +1,15 @@
 package com.example.demo.service.product;
 
+import com.example.demo.dto.ProductDTO;
+import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class ProductService {
@@ -50,5 +54,11 @@ public class ProductService {
         if (productRepository.existsById(id)) {
             productRepository.deleteById(id);
         }
+    }
+
+    public Iterable<ProductDTO> getCreatedDate() {
+        return StreamSupport.stream(productRepository.findAll().spliterator(), false)
+                .map(ProductMapper::mapToNameDateDto)
+                .collect(Collectors.toList());
     }
 }

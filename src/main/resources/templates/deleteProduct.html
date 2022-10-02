@@ -22,7 +22,7 @@
         <p class="card-text" th:text="|Product created ${product.created}|"></p>
 
         <label>
-          <input type="text" th:value="${product.id}" id="id" name="id" />
+          <input type="hidden" th:value="${product.id}" id="id" name="id" />
         </label>
 
         <div class="row my-2">
